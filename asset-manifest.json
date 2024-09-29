@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/lista-pwa/static/css/main.6e119b87.css",
+    "main.js": "/lista-pwa/static/js/main.428bde29.js",
+    "index.html": "/lista-pwa/index.html",
+    "main.6e119b87.css.map": "/lista-pwa/static/css/main.6e119b87.css.map",
+    "main.428bde29.js.map": "/lista-pwa/static/js/main.428bde29.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6e119b87.css",
+    "static/js/main.428bde29.js"
+  ]
+}
