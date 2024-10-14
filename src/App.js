@@ -31,6 +31,7 @@ function App() {
 
   // Agregado para beforeinstallprompt
   const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);  // Estado para la ventana modal
 
   useEffect(() => {
     const handleBeforeInstallPrompt = (event) => {
@@ -45,18 +46,19 @@ function App() {
     };
   }, []);
 
-  const handleInstallClick = () => {
-    if (deferredPrompt) {
+  const handleInstallClick = (install) => {
+    if (install && deferredPrompt) {
       deferredPrompt.prompt();
       deferredPrompt.userChoice.then((choiceResult) => {
         if (choiceResult.outcome === 'accepted') {
-          console.log('User accepted the install prompt');
+          console.log('El usuario aceptó la instalación');
         } else {
-          console.log('User dismissed the install prompt');
+          console.log('El usuario rechazó la instalación');
         }
         setDeferredPrompt(null);
       });
     }
+    setIsModalOpen(false);  // Cerrar la ventana modal después de la acción
   };
 
   return (
@@ -84,9 +86,20 @@ function App() {
       {/* Botón de instalación PWA */}
       {deferredPrompt && (
         <div className="install-button max-w-md mx-auto mt-6 text-center">
-          <button onClick={handleInstallClick} className="bg-green-500 text-white px-4 py-2 rounded-md shadow-sm hover:bg-green-600">
+          <button onClick={() => setIsModalOpen(true)} className="bg-green-500 text-white px-4 py-2 rounded-md shadow-sm hover:bg-green-600">
             Instalar PWA
           </button>
+        </div>
+      )}
+
+      {/* Modal de confirmación */}
+      {isModalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>¿Quieres instalar la aplicación?</h2>
+            <button onClick={() => handleInstallClick(true)}>Instalar app</button>
+            <button onClick={() => handleInstallClick(false)}>Cerrar</button>
+          </div>
         </div>
       )}
     </>
